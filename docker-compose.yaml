@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  webapp:
+    container_name: "nextapp-prod"
+    restart: always
+    ports:
+      - "6500:80/tcp"
+    networks:
+      - nextnet
+    build:
+      context: .
+      dockerfile: Dockerfile
+      no_cache: true
+    develop:
+      watch:
+        - path: ./pages/
+          action: rebuild
+
+networks:
+  nextnet: 
+    name: nextnet
+    driver: bridge
